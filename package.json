@@ -1,0 +1,29 @@
+{
+  "name": "tanker-api",
+  "version": "1.0.0",
+  "description": "API for tanker",
+  "main": "body-mapping-template.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allenmiller/tanker-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/allenmiller/tanker-api/issues"
+  },
+  "homepage": "https://github.com/allenmiller/tanker-api#readme",
+  "devDependencies": {
+    "@types/node": "^12.7.2"
+  },
+  "dependencies": {
+    "@types/aws-lambda": "^8.10.31",
+    "@types/aws-sdk": "^2.7.0",
+    "aws-lambda": "^0.1.2",
+    "aws-sdk": "^2.517.0",
+    "dynamodb-doc": "^1.0.0"
+  }
+}
