@@ -6,11 +6,11 @@ provider:
   memorySize: 256
   stage: dev
   region: "us-west-2"
-  deploymentBucket: ${cf:tanker-us-west-2-dev.TankerPipelineArtifactsBucket}
-  domain: ${cf:tanker-us-west-2-dev.TankerHostedZone}
-  mediaTableArn: ${cf:tanker-us-west-2-dev.MediaTableArn}
+  deploymentBucket: ${cf:tanker-dev.TankerPipelineArtifactsBucket}
+  domain: ${cf:tanker-dev.TankerHostedZone}
+  mediaTableArn: ${cf:tanker-dev.MediaTableArn}
   environment:
-    MEDIA_TABLE_NAME: ${cf:tanker-us-west-2-dev.MediaTableName}
+    MEDIA_TABLE_NAME: ${cf:tanker-dev.MediaTableName}
     WEB_APP_URL: https://${self:provider.domain}
 
 plugins:
@@ -19,7 +19,7 @@ plugins:
 
 custom:
   stage: ${opt:stage, self:provider.stage}
-  certificateArn: ${cf:tanker-us-west-2-dev.TankerCertificateArn}
+  certificateArn: ${cf:tanker-dev.TankerCertificateArn}
 #  mediaTable: ${cf:tanker-us-west-2-dev.MediaTableArn}
 
   # Important: The Route53 A and AAAA domain records created by serverless-domain-manager are managed by the API,
@@ -43,8 +43,8 @@ custom:
     createRoute53Record: true
 
 functions:
-  putFilmStock:
-    handler: filmstock/put.put
+  post:
+    handler: tanker/post.post
     iamRoleStatementsInherit: false
     iamRoleStatements:
       - Effect: "Allow"
@@ -54,22 +54,22 @@ functions:
     events:
       - http:
           path: filmstock/{filmstockId}/{filmFormat}
-          method: put
+          method: post
           cors: true
           authorizer: aws_iam
 
-  postFilmStock:
-    handler: filmstock/post.post
+  get:
+    handler: tanker/get.get
     iamRoleStatementsInherit: false
     iamRoleStatements:
       - Effect: "Allow"
         Action:
-          - dynamodb:PutItem
+          - dynamodb:Query
         Resource: ${self:provider.mediaTableArn}
     events:
       - http:
           path: filmstock
-          method: post
+          method: get
           cors: true
           authorizer: aws_iam
 

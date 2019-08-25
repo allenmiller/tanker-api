@@ -34,7 +34,7 @@ type PumpRecord = {
   sourceIp: string,
 };
 
-export const handler:Handler = (event, context:Context, callback:Callback) => {
+export const post:Handler = (event, context:Context, callback:Callback) => {
 
   console.log('AJM: Received event:', JSON.stringify(event, null, 2));
   console.log('context:', JSON.stringify(context, null, 2));

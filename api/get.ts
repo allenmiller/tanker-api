@@ -3,7 +3,7 @@ import { Context, Callback, Handler } from 'aws-lambda';
 import { QueryOutput } from 'aws-sdk/clients/dynamodb';
 const dynamo = new DynamoDB.DocumentClient();
 
-export const handler:Handler = (event, context:Context, callback:Callback) => { //TODO better type for event
+export const get:Handler = (event, context:Context, callback:Callback) => { //TODO better type for event
   console.log('Received event:', JSON.stringify(event, null, 2));
   const done = (err:AWSError, res:QueryOutput) => callback(null, {
     statusCode: err ? '400' : '200',
